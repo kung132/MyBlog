@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,8 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public List<User> getAllUsers() { return userRepository.findAll(); }
+
     @Transactional
     public User updateUser(Long id, UserDto userDto) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 아이디가 없습니다."));
@@ -31,4 +34,16 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    @Transactional
+    public User createUser(UserDto userDto) {
+        return userRepository.save(userDto.toEntity(userDto));
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+
 }

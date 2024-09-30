@@ -6,6 +6,7 @@ import com.kpnoh.myblog.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,8 +21,23 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @PostMapping
+    public User createUser(@RequestBody UserDto userDto) {
+        return userService.createUser(userDto);
+    }
+
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
     }
 }

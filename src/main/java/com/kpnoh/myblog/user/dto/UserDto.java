@@ -21,7 +21,6 @@ public class UserDto {
 
     public User toEntity(UserDto userDto) {
         return User.builder()
-                .id(userDto.getId())
                 .password(userDto.getPassword())
                 .email(userDto.getEmail())
                 .phone(userDto.getPhone())
